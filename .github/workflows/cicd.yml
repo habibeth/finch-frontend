@@ -1,6 +1,6 @@
 name: Github CI/CD Setup
 
-on: 
+on:
   push:
     branches:
       - main
@@ -9,13 +9,20 @@ on:
       - main
 
 jobs:
-  name: build-and-test
-  runs-on: self-hosted
+  deployment:
+    runs-on: self-hosted
 
-  steps: 
-    - name: checkout code
-    uses: actions/checkout@v2
-    - name: Install Application Level Dependencies
-      run: |
-        echo "Installing application level dependencies"
-        npm install
+    steps:
+      - name: checkout code
+        uses: actions/checkout@v3
+      - name: Install Application Level Dependencies
+        run: |
+          echo "Installing application level dependencies"
+          npm install
+      - name: Delete Existing process
+        run: |
+          pm2 delete node-js || true
+      - name: start application
+        run: |
+          echo "Starting application"
+          pm2 start "npm run serve" --name="node-js"
