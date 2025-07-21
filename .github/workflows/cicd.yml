@@ -18,11 +18,11 @@ jobs:
       - name: Install Application Level Dependencies
         run: |
           echo "Installing application level dependencies"
-          yarn install
+          npm install
       - name: Delete Existing process
         run: |
           pm2 delete node-js || true
       - name: start application
         run: |
           echo "Starting application"
-          pm2 start "yarn serve" --name="node-js"
+          pm2 start "npm run serve" --name="node-js"
