@@ -23,3 +23,6 @@ jobs:
         run: |
           echo "Installing application level dependencies"
           npm install
+      - name: Build Application
+        run: |
+          npm run build
